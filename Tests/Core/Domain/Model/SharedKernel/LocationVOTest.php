@@ -39,6 +39,19 @@ class LocationVOTest extends Unit
         $this->tester->assertFalse($locationOne->isEqual($locationTwo));
     }
 
+    public function testNotEqualSymmetrical()
+    {
+        $locationOne = new LocationVO(
+            x: new CoordinateVO(7),
+            y: new CoordinateVO(6)
+        );
+        $locationTwo = new LocationVO(
+            x: new CoordinateVO(6),
+            y: new CoordinateVO(7)
+        );
+        $this->tester->assertFalse($locationOne->isEqual($locationTwo));
+    }
+
     public function testRandom()
     {
         $random = LocationVO::random();

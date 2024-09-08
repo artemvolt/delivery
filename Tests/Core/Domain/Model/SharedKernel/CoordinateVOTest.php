@@ -23,6 +23,12 @@ class CoordinateVOTest extends \Codeception\Test\Unit
         $location = new CoordinateVO(1);
     }
 
+    public function testCorrectValue()
+    {
+        $this->expectNotToPerformAssertions();
+        $location = new CoordinateVO(5);
+    }
+
     public function testMaximumCorrectValue()
     {
         $this->expectNotToPerformAssertions();
