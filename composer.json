@@ -1,0 +1,17 @@
+{
+    "require-dev": {
+        "codeception/codeception": "^5.1",
+        "codeception/module-asserts": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Api\\": "Api/",
+            "Core\\": "Core/",
+            "Infrastructure\\": "Infrastructure/",
+            "Tests\\": "Tests/"
+        }
+    },
+    "require": {
+        "webmozart/assert": "^1.11"
+    }
+}

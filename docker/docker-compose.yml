@@ -1,0 +1,8 @@
+version: "2.0"
+
+services:
+  php:
+    container_name: delivery_php
+    build: "./php"
+    volumes:
+      - "./../:/var/www"
