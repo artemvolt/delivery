@@ -8,13 +8,16 @@ use Webmozart\Assert\Assert;
 
 final readonly class CoordinateVO
 {
+    private const MIN_VALUE = 1;
+    private const MAX_VALUE = 10;
+
     public function __construct(
         public int $value,
     ) {
         Assert::range(
             value: $this->value,
-            min: 1,
-            max: 10,
+            min: self::MIN_VALUE,
+            max: self::MAX_VALUE,
             message: "Available range for coordinate from 1 to 10. Value is $this->value"
         );
     }
