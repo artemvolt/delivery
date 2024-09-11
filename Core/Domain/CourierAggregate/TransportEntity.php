@@ -70,4 +70,16 @@ final class TransportEntity
     {
         return $this->id->equals($transport->id);
     }
+
+    /**
+     * @return TransportEntity[]
+     */
+    public function getList(): array
+    {
+        return [
+            self::pedestrian(),
+            self::bicycle(),
+            self::car(),
+        ];
+    }
 }

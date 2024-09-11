@@ -74,4 +74,16 @@ final class OrderStatusEntity
     {
         return $this->id;
     }
+
+    /**
+     * @return OrderStatusEntity[]
+     */
+    public function getList(): array
+    {
+        return [
+            self::created(),
+            self::assigned(),
+            self::completed()
+        ];
+    }
 }

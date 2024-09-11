@@ -52,4 +52,15 @@ final class CourierStatusEntity
     {
         return $this->id;
     }
+
+    /**
+     * @return CourierStatusEntity[]
+     */
+    public function getList(): array
+    {
+        return [
+            self::free(),
+            self::busy(),
+        ];
+    }
 }
