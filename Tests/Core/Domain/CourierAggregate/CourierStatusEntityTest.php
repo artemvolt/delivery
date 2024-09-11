@@ -1,13 +1,16 @@
 <?php
 
-namespace Core\Domain\CourierAggregate;
+declare(strict_types=1);
 
+namespace Tests\Core\Domain\CourierAggregate;
+
+use Core\Domain\CourierAggregate\CourierStatusEntity;
+use Core\Domain\CourierAggregate\CourierStatusEnum;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 class CourierStatusEntityTest extends TestCase
 {
-
     public function testFree()
     {
         $this->assertEquals(

@@ -60,27 +60,14 @@ final class OrderStatusEntity
      */
     public static function fromName(string $name): self
     {
-        $names = array_map(
-            fn (OrderStatusEnum $orderStatusEnum) => $orderStatusEnum->name,
-            OrderStatusEnum::cases(),
-        );
+        $status = match ($name) {
+            OrderStatusEnum::created->name => OrderStatusEnum::created,
+            OrderStatusEnum::completed->name => OrderStatusEnum::completed,
+            OrderStatusEnum::assigned->name => OrderStatusEnum::assigned,
+            default => throw new InvalidArgumentException("$name doesn't contain in available names.")
+        };
 
-        if (!in_array($name, $names)) {
-            throw new InvalidArgumentException("$name doesn't contain in available names.");
-        }
-
-        $namesKeys = array_combine(
-            array_map(
-                fn (OrderStatusEnum $orderStatusEnum) => $orderStatusEnum->name,
-                OrderStatusEnum::cases(),
-            ),
-            array_map(
-                fn (OrderStatusEnum $orderStatusEnum) => $orderStatusEnum->value,
-                OrderStatusEnum::cases(),
-            )
-        );
-        $statusValue = $namesKeys[$name];
-        return self::fromId($statusValue);
+        return self::fromId($status->value);
     }
 
     public function getId(): int

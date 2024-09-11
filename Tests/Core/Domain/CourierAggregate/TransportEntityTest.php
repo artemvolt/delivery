@@ -10,7 +10,6 @@ use PHPUnit\Framework\TestCase;
 
 class TransportEntityTest extends TestCase
 {
-
     public function testPedestrian()
     {
         $this->assertEquals(1, TransportEntity::pedestrian()->getSpeed()->value);

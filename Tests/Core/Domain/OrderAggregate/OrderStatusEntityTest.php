@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Core\Domain\OrderAggregate;
 
 use Core\Domain\OrderAggregate\OrderStatusEntity;
