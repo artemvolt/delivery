@@ -12,6 +12,7 @@
         }
     },
     "require": {
-        "webmozart/assert": "^1.11"
+        "webmozart/assert": "^1.11",
+        "ramsey/uuid": "^4.7"
     }
 }
