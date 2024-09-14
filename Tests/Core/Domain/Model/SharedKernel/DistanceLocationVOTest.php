@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Core\Domain\Model\SharedKernel;
+namespace Tests\Core\Domain\Model\SharedKernel;
 
 use Codeception\Test\Unit;
 use Core\Domain\Model\SharedKernel\CoordinateVO;

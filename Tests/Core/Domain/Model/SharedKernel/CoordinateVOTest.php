@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Core\Domain\Model\SharedKernel;
+namespace Tests\Core\Domain\Model\SharedKernel;
 
 use Core\Domain\Model\SharedKernel\CoordinateVO;
 use Tests\Support\UnitTester;
