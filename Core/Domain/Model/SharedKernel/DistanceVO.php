@@ -15,16 +15,16 @@ final readonly class DistanceVO
     public function getX(): int
     {
         return abs(
-            $this->locationOne->getX()->getValue()
-                 - $this->locationTwo->getX()->getValue()
+            $this->locationOne->x->value
+                 - $this->locationTwo->x->value
         );
     }
 
     public function getY(): int
     {
         return abs(
-            $this->locationOne->getY()->getValue()
-                 - $this->locationTwo->getY()->getValue()
+            $this->locationOne->y->value
+                 - $this->locationTwo->y->value
         );
     }
 }

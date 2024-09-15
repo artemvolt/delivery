@@ -86,9 +86,4 @@ final class OrderStatusEntity
             self::completed()
         ];
     }
-
-    public function isEqual(OrderStatusEntity $status): bool
-    {
-        return $this->getId() === $status->getId();
-    }
 }
