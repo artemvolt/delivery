@@ -12,17 +12,17 @@ class TransportEntityTest extends TestCase
 {
     public function testPedestrian()
     {
-        $this->assertEquals(1, TransportEntity::pedestrian()->getSpeed()->value);
+        $this->assertEquals(1, TransportEntity::pedestrian()->getSpeed()->getValue());
     }
 
     public function testCar()
     {
-        $this->assertEquals(2, TransportEntity::bicycle()->getSpeed()->value);
+        $this->assertEquals(2, TransportEntity::bicycle()->getSpeed()->getValue());
     }
 
     public function testBicycle()
     {
-        $this->assertEquals(3, TransportEntity::car()->getSpeed()->value);
+        $this->assertEquals(3, TransportEntity::car()->getSpeed()->getValue());
     }
 
     public function testFromNameSuccess()
