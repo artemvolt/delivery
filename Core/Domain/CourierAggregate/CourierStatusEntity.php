@@ -63,4 +63,9 @@ final class CourierStatusEntity
             self::busy(),
         ];
     }
+
+    public function isEqual(CourierStatusEntity $status): bool
+    {
+        return $this->getId() === $status->getId();
+    }
 }

@@ -12,7 +12,7 @@ final readonly class CoordinateVO
     private const MAX_VALUE = 10;
 
     public function __construct(
-        public int $value,
+        private int $value,
     ) {
         Assert::range(
             value: $this->value,
@@ -20,5 +20,10 @@ final readonly class CoordinateVO
             max: self::MAX_VALUE,
             message: "Available range for coordinate from 1 to 10. Value is $this->value"
         );
+    }
+
+    public function getValue(): int
+    {
+        return $this->value;
     }
 }

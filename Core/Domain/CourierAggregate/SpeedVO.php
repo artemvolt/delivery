@@ -9,8 +9,13 @@ use Webmozart\Assert\Assert;
 final class SpeedVO
 {
     public function __construct(
-        public readonly int $value,
+        private int $value,
     ) {
         Assert::positiveInteger($this->value, 'Speed must be positive');
+    }
+
+    public function getValue(): int
+    {
+        return $this->value;
     }
 }
