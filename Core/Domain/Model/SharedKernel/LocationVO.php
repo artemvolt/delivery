@@ -7,8 +7,8 @@ namespace Core\Domain\Model\SharedKernel;
 final readonly class LocationVO
 {
     public function __construct(
-        public CoordinateVO $x,
-        public CoordinateVO $y,
+        private CoordinateVO $x,
+        private CoordinateVO $y,
     ) {
     }
 
@@ -25,6 +25,16 @@ final readonly class LocationVO
 
     public function isEqual(LocationVO $location): bool
     {
-        return $this->x->value === $location->x->value && $this->y->value === $location->y->value;
+        return $this->x->getValue() === $location->x->getValue() && $this->y->getValue() === $location->y->getValue();
+    }
+
+    public function getX(): CoordinateVO
+    {
+        return $this->x;
+    }
+
+    public function getY(): CoordinateVO
+    {
+        return $this->y;
     }
 }
