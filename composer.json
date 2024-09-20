@@ -13,6 +13,15 @@
     },
     "require": {
         "webmozart/assert": "^1.11",
-        "ramsey/uuid": "^4.7"
+        "ramsey/uuid": "^4.7",
+        "yiisoft/di": "^1.2",
+        "yiisoft/db-migration": "^1.1",
+        "yiisoft/db": "^1.3",
+        "yiisoft/cache": "^3.0",
+        "yiisoft/db-pgsql": "^1.0",
+        "doctrine/orm": "^3.2",
+        "doctrine/dbal": "^4.1",
+        "symfony/cache": "^7.1",
+        "ramsey/uuid-doctrine": "^2.1"
     }
 }

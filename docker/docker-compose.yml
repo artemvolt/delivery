@@ -6,3 +6,17 @@ services:
     build: "./php"
     volumes:
       - "./../:/var/www"
+    depends_on:
+      - db
+    links:
+      - db
+  db:
+    container_name: delivery_db
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=delivery
+      - POSTGRES_PASSWORD=delivery
+    volumes:
+      - "./../docker/mount:/var/lib/postgresql/data"

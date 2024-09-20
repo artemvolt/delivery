@@ -1,1 +1,5 @@
-./vendor/
+/vendor/
+/.idea/
+/docker/mount/
+/vendor/
+/Tests/Support/_generated/
