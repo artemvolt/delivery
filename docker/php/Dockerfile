@@ -6,3 +6,5 @@ RUN apt-get install -y nano vim wget git unzip zlib1g-dev libpng-dev libzip-dev 
 
 RUN docker-php-ext-install bcmath zip gd intl pdo pdo_mysql
 WORKDIR /var/www
+RUN curl -sS https://get.symfony.com/cli/installer | bash
+RUN mv /root/.symfony5/bin/symfony /usr/local/bin/symfony
