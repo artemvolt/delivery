@@ -1,0 +1,14 @@
+actor: IntegrationTester
+suite_namespace: \Integration
+modules:
+    enabled:
+        - Asserts
+        - Yii2:
+            part: [ orm, email, fixtures ]
+        - Db:
+            dsn: 'pgsql:host=delivery_db_test;dbname=postgres'
+            user: 'delivery'
+            password: 'delivery'
+            populate: true
+            cleanup: true
+            populator: '/var/www/tests/bin/yii migrate --interactive=0'

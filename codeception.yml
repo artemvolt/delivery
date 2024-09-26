@@ -1,21 +1,27 @@
-namespace: Tests
-support_namespace: Support
-suites:
-    unit:
-        path: .
-        actor: UnitTester
-        modules:
-            enabled:
-                # add more modules here
-                - Asserts
-        step_decorators: ~
-
-settings:
-    shuffle: true
-    lint: true
+actor: Tester
+bootstrap: _bootstrap.php
 paths:
-    tests: Tests
-    output: Tests/_output
-    support: Tests/Support
-    data: Tests/Support/Data
-     
+    tests: tests
+    output: tests/_output
+    data: tests/_data
+    helpers: tests/_support
+settings:
+    memory_limit: 1024M
+    colors: true
+modules:
+    config:
+        Yii2:
+            configFile: 'config/test.php'
+
+# To enable code coverage:
+#coverage:
+#    #c3_url: http://localhost:8080/index-test.php/
+#    enabled: true
+#    #remote: true
+#    #remote_config: '../codeception.yml'
+#    whitelist:
+#        include:
+#            - models/*
+#            - controllers/*
+#            - commands/*
+#            - mail/*
