@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\common\Core\Domain\CourierAggregate\TransportEntityEnum;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -61,6 +62,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        TransportEntityEnum::bicycle->name;
         return $this->render('index');
     }
 

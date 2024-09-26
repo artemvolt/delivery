@@ -1,10 +1,12 @@
 <?php
 
+use yii\db\Connection;
+
 return [
-    'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=localhost;dbname=yii2basic',
-    'username' => 'root',
-    'password' => '',
+    'class' => Connection::class,
+    'dsn' => 'pgsql:host=delivery_db;dbname=postgres',
+    'username' => 'delivery',
+    'password' => 'delivery',
     'charset' => 'utf8',
 
     // Schema cache options (for production environment)
