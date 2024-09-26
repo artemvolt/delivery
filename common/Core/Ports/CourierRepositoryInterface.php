@@ -22,12 +22,9 @@ interface CourierRepositoryInterface
     public function updateCourier(CourierAggregate $courier): void;
 
     /**
-     * @throws ContentNotFound
+     * @throws DomainException
      */
     public function getById(UuidInterface $id): CourierAggregate;
 
-    /**
-     * @throws ContentNotFound
-     */
     public function getFreeCouriers(): array;
 }

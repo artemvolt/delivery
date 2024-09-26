@@ -17,23 +17,15 @@ interface OrderRepositoryInterface
 
     /**
      * @throws DomainException
-     * @throws ContentNotFound
      */
     public function updateOrder(OrderAggregate $order): void;
 
     /**
      * @throws DomainException
-     * @throws ContentNotFound
      */
     public function getById(int $orderId): OrderAggregate;
 
-    /**
-     * @throws ContentNotFound
-     */
     public function getCreatedOrders(): array;
 
-    /**
-     * @throws ContentNotFound
-     */
     public function getAssignedOrders(): array;
 }
