@@ -24,7 +24,7 @@ interface CourierRepositoryInterface
     /**
      * @throws DomainException
      */
-    public function getById(UuidInterface $id): CourierAggregate;
+    public function getById(UuidInterface $id): ?CourierAggregate;
 
     public function getFreeCouriers(): array;
 }

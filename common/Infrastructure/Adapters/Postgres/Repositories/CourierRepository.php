@@ -44,11 +44,11 @@ final class CourierRepository implements CourierRepositoryInterface
         }
     }
 
-    public function getById(UuidInterface $id): CourierAggregate
+    public function getById(UuidInterface $id): ?CourierAggregate
     {
         $found = CourierModel::findOne(['id' => $id->toString()]);
         if (null === $found) {
-            throw new DomainException("Could not found Courier {$id}");
+            return null;
         }
         return $this->mapToEntity($found);
     }

@@ -13,6 +13,10 @@ use app\common\Infrastructure\Adapters\Postgres\Models\CourierModel;
 use app\common\Infrastructure\Adapters\Postgres\Repositories\CourierRepository;
 use \IntegrationTester;
 
+/**
+ * @TODO переделать тесты на запросы в бд,
+ * Сперва создать состояние в бд и потом протестировать репозиторий
+ */
 class CourierRepositoryCest
 {
     private ?CourierAggregate $courier = null;

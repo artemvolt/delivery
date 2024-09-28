@@ -46,11 +46,11 @@ final class OrderRepository implements OrderRepositoryInterface
         }
     }
 
-    public function getById(int $orderId): OrderAggregate
+    public function getById(int $orderId): ?OrderAggregate
     {
         $orderModel = OrderModel::findOne(['id' => $orderId]);
         if (null === $orderModel) {
-            throw new DomainException("Order {$orderId} not found");
+            return null;
         }
         return $this->mapToEntity($orderModel);
     }

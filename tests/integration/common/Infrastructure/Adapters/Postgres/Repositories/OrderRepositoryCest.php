@@ -16,6 +16,10 @@ use app\common\Infrastructure\Adapters\Postgres\Repositories\CourierRepository;
 use app\common\Infrastructure\Adapters\Postgres\Repositories\OrderRepository;
 use IntegrationTester;
 
+/**
+ * @TODO переделать тесты на запросы в бд,
+ * Сперва создать состояние в бд и потом протестировать репозиторий
+ */
 class OrderRepositoryCest
 {
     private ?OrderAggregate $order = null;

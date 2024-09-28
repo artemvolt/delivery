@@ -20,10 +20,7 @@ interface OrderRepositoryInterface
      */
     public function updateOrder(OrderAggregate $order): void;
 
-    /**
-     * @throws DomainException
-     */
-    public function getById(int $orderId): OrderAggregate;
+    public function getById(int $orderId): ?OrderAggregate;
 
     public function getCreatedOrders(): array;
 
