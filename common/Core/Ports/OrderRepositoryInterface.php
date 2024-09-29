@@ -22,7 +22,13 @@ interface OrderRepositoryInterface
 
     public function getById(int $orderId): ?OrderAggregate;
 
+    /**
+     * @return OrderAggregate[]
+     */
     public function getCreatedOrders(): array;
 
+    /**
+     * @return OrderAggregate[]
+     */
     public function getAssignedOrders(): array;
 }

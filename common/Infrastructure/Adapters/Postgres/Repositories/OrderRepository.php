@@ -55,9 +55,6 @@ final class OrderRepository implements OrderRepositoryInterface
         return $this->mapToEntity($orderModel);
     }
 
-    /**
-     * @return OrderAggregate[]
-     */
     public function getCreatedOrders(): array
     {
         return array_map(
@@ -66,9 +63,6 @@ final class OrderRepository implements OrderRepositoryInterface
         );
     }
 
-    /**
-     * @return OrderAggregate[]
-     */
     public function getAssignedOrders(): array
     {
         return array_map(

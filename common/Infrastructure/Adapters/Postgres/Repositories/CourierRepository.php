@@ -53,9 +53,6 @@ final class CourierRepository implements CourierRepositoryInterface
         return $this->mapToEntity($found);
     }
 
-    /**
-     * @return CourierAggregate[]
-     */
     public function getFreeCouriers(): array
     {
         return array_map(
@@ -87,6 +84,14 @@ final class CourierRepository implements CourierRepositoryInterface
                 y: new CoordinateVO($courierModel->location_y),
             ),
             statusEntity: CourierStatusEntity::fromId($courierModel->status_id),
+        );
+    }
+
+    public function getBusyCouriers(): array
+    {
+        return array_map(
+            fn (CourierModel $courierModel) => $this->mapToEntity($courierModel),
+            CourierModel::findAll(['status_id' => CourierStatusEnum::busy->value])
         );
     }
 }
