@@ -11,10 +11,8 @@ use app\common\Core\Application\UseCases\Commands\CreateOrder\CreateOrderCommand
 use app\common\Core\Application\UseCases\Commands\CreateOrder\CreateOrderCommandHandler;
 use app\common\Core\Application\UseCases\Queries\GetUncompletedOrders\GetUncompletedOrdersQueryDto;
 use app\common\Core\Application\UseCases\Queries\GetUncompletedOrders\GetUncompletedOrdersQueryHandler;
-use app\common\Core\Application\UseCases\Queries\GetUncompletedOrders\OrderDto;
 use DomainException;
 use yii\rest\Controller;
-use OpenApi\Attributes as OA;
 
 final class OrdersController extends Controller implements OrdersControllerContractInterface
 {
@@ -45,17 +43,19 @@ final class OrdersController extends Controller implements OrdersControllerContr
 
     public function actionActive()
     {
-        return array_map(
-            function (OrderDto $orderDto) {
-                return new ResponseOrderDto(
-                    id: $orderDto->id,
-                    location: new LocationDto(
-                        x: $orderDto->location->x,
-                        y: $orderDto->location->y,
-                    )
-                );
-            },
-            $this->getUncompletedOrdersQueryHandler->handle(new GetUncompletedOrdersQueryDto())->orders
-        );
+        $orders = $this->getUncompletedOrdersQueryHandler->handle(new GetUncompletedOrdersQueryDto())->orders;
+
+        $resultOrders = [];
+        foreach ($orders as $order) {
+            $resultOrders[] = new ResponseOrderDto(
+                id: $order->id,
+                location: new LocationDto(
+                    x: $order->location->x,
+                    y: $order->location->y,
+                )
+            );
+        }
+
+        return $resultOrders;
     }
 }
