@@ -2,16 +2,18 @@
 
 declare(strict_types=1);
 
-namespace app\api\modules\v1\controllers;
+namespace app\api\modules\api\v1\controllers;
 
+use app\api\modules\api\components\BaseApiController;
 use app\common\Api\Adapters\Http\Contract\CouriersControllerContractInterface;
 use app\common\Api\Adapters\Http\Contract\Models\CourierDto as ResponseCourierDto;
 use app\common\Api\Adapters\Http\Contract\Models\LocationDto;
 use app\common\Core\Application\UseCases\Queries\GetAllCouriers\GetAllCouriersQueryDto;
 use app\common\Core\Application\UseCases\Queries\GetAllCouriers\GetAllCouriersQueryHandlerInterface;
+use yii\filters\Cors;
 use yii\rest\Controller;
 
-final class CouriersController extends Controller implements CouriersControllerContractInterface
+final class CouriersController extends BaseApiController implements CouriersControllerContractInterface
 {
     public function __construct(
         $id,

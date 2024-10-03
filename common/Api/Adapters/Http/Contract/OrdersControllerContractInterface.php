@@ -9,7 +9,7 @@ use OpenApi\Attributes as OA;
 interface OrdersControllerContractInterface
 {
     #[OA\POST(
-        path: '/v1/orders',
+        path: '/api/v1/orders',
         operationId: "CreateOrder",
         description: "Позволяет создать заказ с целью тестирования",
         summary: "Создать заказ",
@@ -30,7 +30,7 @@ interface OrdersControllerContractInterface
     public function actionCreate();
 
     #[OA\GET(
-        path: '/v1/orders/active',
+        path: '/api/v1/orders/active',
         operationId: "GetOrders",
         description: "Позволяет получить все незавершенные",
         summary: "Получить все незавершенные заказы",

@@ -9,7 +9,7 @@ use OpenApi\Attributes as OA;
 interface CouriersControllerContractInterface
 {
     #[OA\GET(
-        path: '/v1/couriers/all',
+        path: '/api/v1/couriers/all',
         operationId: "GetCouriers",
         description: "Позволяет получить всех курьеров",
         summary: "Получить всех курьеров",

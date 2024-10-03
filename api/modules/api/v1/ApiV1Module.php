@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace app\api\modules\v1;
+namespace app\api\modules\api\v1;
 
 use OpenApi\Attributes as OA;
 use yii\base\Module;

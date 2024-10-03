@@ -1,6 +1,7 @@
 <?php
 
-use app\api\modules\v1\ApiV1Module;
+use app\api\modules\api\ApiModule;
+use app\api\modules\api\v1\ApiV1Module;
 use yii\web\JsonParser;
 use yii\web\JsonResponseFormatter;
 use yii\web\Response;
@@ -55,13 +56,31 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                'POST v1/orders' => 'v1/orders/create',
+                [
+                    'pattern' => 'api/v1/orders',
+                    'route' => 'api/v1/orders/create',
+                ],
+                [
+                    'pattern' => 'api/v1/couriers',
+                    'route' => 'api/v1/couriers/all',
+                    'suffix' => '/',
+                ],
+                [
+                    'pattern' => 'api/v1/orders',
+                    'route' => 'api/v1/orders/create',
+                    'suffix' => '/',
+                ],
             ],
         ],
     ],
     'modules' => [
-        'v1' => [
-            'class' => ApiV1Module::class,
+        'api' => [
+            'class' => ApiModule::class,
+            'modules' => [
+                'v1' => [
+                    'class' => ApiV1Module::class,
+                ]
+            ],
         ]
     ],
     'params' => [],
