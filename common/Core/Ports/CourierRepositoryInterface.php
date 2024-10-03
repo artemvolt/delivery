@@ -26,5 +26,13 @@ interface CourierRepositoryInterface
      */
     public function getById(UuidInterface $id): ?CourierAggregate;
 
+    /**
+     * @return CourierAggregate[]
+     */
     public function getFreeCouriers(): array;
+
+    /**
+     * @return CourierAggregate[]
+     */
+    public function getBusyCouriers(): array;
 }

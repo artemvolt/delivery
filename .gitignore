@@ -1,5 +1,5 @@
 # phpstorm project files
-.idea/
+/.idea/
 
 # netbeans project files
 nbproject
@@ -31,3 +31,6 @@ tests/_support/_generated
 
 #vagrant folder
 /.vagrant
+
+/docker/mount/
+/tests/_support/
