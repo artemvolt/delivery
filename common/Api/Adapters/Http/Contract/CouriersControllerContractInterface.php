@@ -9,10 +9,10 @@ use OpenApi\Attributes as OA;
 interface CouriersControllerContractInterface
 {
     #[OA\GET(
-        path: '/v1/couriers/busy',
+        path: '/v1/couriers/all',
         operationId: "GetCouriers",
-        description: "Позволяет получить всех занятых курьеров",
-        summary: "Получить всех занятых курьеров",
+        description: "Позволяет получить всех курьеров",
+        summary: "Получить всех курьеров",
         tags: ['Couriers'],
         parameters: [],
         responses: [
@@ -31,5 +31,5 @@ interface CouriersControllerContractInterface
             ),
         ],
     )]
-    public function actionBusy();
+    public function actionAll();
 }

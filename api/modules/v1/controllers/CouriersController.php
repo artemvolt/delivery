@@ -7,8 +7,8 @@ namespace app\api\modules\v1\controllers;
 use app\common\Api\Adapters\Http\Contract\CouriersControllerContractInterface;
 use app\common\Api\Adapters\Http\Contract\Models\CourierDto as ResponseCourierDto;
 use app\common\Api\Adapters\Http\Contract\Models\LocationDto;
-use app\common\Core\Application\UseCases\Queries\GetBusyCouriers\GetBusyCouriersQueryDto;
-use app\common\Core\Application\UseCases\Queries\GetBusyCouriers\GetBusyCouriersQueryHandlerInterface;
+use app\common\Core\Application\UseCases\Queries\GetAllCouriers\GetAllCouriersQueryDto;
+use app\common\Core\Application\UseCases\Queries\GetAllCouriers\GetAllCouriersQueryHandlerInterface;
 use yii\rest\Controller;
 
 final class CouriersController extends Controller implements CouriersControllerContractInterface
@@ -16,15 +16,15 @@ final class CouriersController extends Controller implements CouriersControllerC
     public function __construct(
         $id,
         $module,
-        private readonly GetBusyCouriersQueryHandlerInterface $getBusyCouriersQueryHandler,
+        private readonly GetAllCouriersQueryHandlerInterface $getAllCouriersQueryHandler,
         $config = [])
     {
         parent::__construct($id, $module, $config);
     }
 
-    public function actionBusy()
+    public function actionAll()
     {
-        $couriers = $this->getBusyCouriersQueryHandler->handle(new GetBusyCouriersQueryDto())->couriers;
+        $couriers = $this->getAllCouriersQueryHandler->handle(new GetAllCouriersQueryDto())->couriers;
 
         $resultCouriers = [];
         foreach ($couriers as $courier) {
