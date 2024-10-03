@@ -18,6 +18,8 @@ use app\common\Core\Ports\CourierRepositoryInterface;
 use app\common\Core\Ports\OrderRepositoryInterface;
 use app\common\Infrastructure\Adapters\Postgres\Repositories\CourierRepository;
 use app\common\Infrastructure\Adapters\Postgres\Repositories\OrderRepository;
+use common\Infrastructure\Adapters\Postgres\UnitOfWork;
+use common\Infrastructure\Adapters\Postgres\UnitOfWorkInterface;
 
 return [
     'definitions' => [
@@ -29,5 +31,6 @@ return [
         DispatchServiceInterface::class => DispatchService::class,
         CourierRepositoryInterface::class => CourierRepository::class,
         OrderRepositoryInterface::class => OrderRepository::class,
+        UnitOfWorkInterface::class => UnitOfWork::class,
     ],
 ];
