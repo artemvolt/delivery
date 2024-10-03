@@ -21,19 +21,20 @@ final class GetUncompletedOrdersQueryHandler implements GetUncompletedOrdersQuer
             $this->orderRepository->getAssignedOrders(),
         );
 
+        $ordersForResponse = [];
+
+        foreach ($uncompletedOrders as $uncompletedOrder) {
+            $ordersForResponse[] = new OrderDto(
+                id: $uncompletedOrder->getId(),
+                location: new LocationDto(
+                    x: $uncompletedOrder->getLocation()->getX()->getValue(),
+                    y: $uncompletedOrder->getLocation()->getY()->getValue(),
+                )
+            );
+        }
+
         return new GetUncompletedOrdersQueryResponse(
-            orders: array_map(
-                callback: function (OrderAggregate $orderAggregate) {
-                    return new OrderDto(
-                        id: $orderAggregate->getId(),
-                        location: new LocationDto(
-                            x: $orderAggregate->getLocation()->getX()->getValue(),
-                            y: $orderAggregate->getLocation()->getY()->getValue(),
-                        )
-                    );
-                },
-                array: $uncompletedOrders,
-            )
+            orders: $ordersForResponse,
         );
     }
 }
