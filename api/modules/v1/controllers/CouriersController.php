@@ -8,7 +8,7 @@ use app\common\Api\Adapters\Http\Contract\CouriersControllerContractInterface;
 use app\common\Api\Adapters\Http\Contract\Models\CourierDto as ResponseCourierDto;
 use app\common\Api\Adapters\Http\Contract\Models\LocationDto;
 use app\common\Core\Application\UseCases\Queries\GetBusyCouriers\GetBusyCouriersQueryDto;
-use app\common\Core\Application\UseCases\Queries\GetBusyCouriers\GetBusyCouriersQueryHandler;
+use app\common\Core\Application\UseCases\Queries\GetBusyCouriers\GetBusyCouriersQueryHandlerInterface;
 use yii\rest\Controller;
 
 final class CouriersController extends Controller implements CouriersControllerContractInterface
@@ -16,7 +16,7 @@ final class CouriersController extends Controller implements CouriersControllerC
     public function __construct(
         $id,
         $module,
-        private readonly GetBusyCouriersQueryHandler $getBusyCouriersQueryHandler,
+        private readonly GetBusyCouriersQueryHandlerInterface $getBusyCouriersQueryHandler,
         $config = [])
     {
         parent::__construct($id, $module, $config);

@@ -8,9 +8,9 @@ use app\common\Api\Adapters\Http\Contract\Models\LocationDto;
 use app\common\Api\Adapters\Http\Contract\Models\OrderDto as ResponseOrderDto;
 use app\common\Api\Adapters\Http\Contract\OrdersControllerContractInterface;
 use app\common\Core\Application\UseCases\Commands\CreateOrder\CreateOrderCommandDto;
-use app\common\Core\Application\UseCases\Commands\CreateOrder\CreateOrderCommandHandler;
+use app\common\Core\Application\UseCases\Commands\CreateOrder\CreateOrderCommandHandlerInterface;
 use app\common\Core\Application\UseCases\Queries\GetUncompletedOrders\GetUncompletedOrdersQueryDto;
-use app\common\Core\Application\UseCases\Queries\GetUncompletedOrders\GetUncompletedOrdersQueryHandler;
+use app\common\Core\Application\UseCases\Queries\GetUncompletedOrders\GetUncompletedOrdersQueryHandlerInterface;
 use DomainException;
 use yii\rest\Controller;
 
@@ -19,8 +19,8 @@ final class OrdersController extends Controller implements OrdersControllerContr
     public function __construct(
         $id,
         $module,
-        private readonly CreateOrderCommandHandler $createOrderCommandHandler,
-        private readonly GetUncompletedOrdersQueryHandler $getUncompletedOrdersQueryHandler,
+        private readonly CreateOrderCommandHandlerInterface $createOrderCommandHandler,
+        private readonly GetUncompletedOrdersQueryHandlerInterface $getUncompletedOrdersQueryHandler,
         $config = [])
     {
         parent::__construct($id, $module, $config);
