@@ -5,19 +5,20 @@ namespace app\common\Core\Application\UseCases\Commands\MoveCouriers;
 
 use app\common\Core\Ports\CourierRepositoryInterface;
 use app\common\Core\Ports\OrderRepositoryInterface;
-use Yii;
+use common\Infrastructure\Adapters\Postgres\UnitOfWorkInterface;
 
 final class MoveCouriersCommandHandler implements MoveCouriersCommandHandlerInterface
 {
     public function __construct(
         private readonly CourierRepositoryInterface $courierRepository,
         private readonly OrderRepositoryInterface $orderRepository,
+        private readonly UnitOfWorkInterface $unitOfWork,
     ) {
     }
 
     public function handle(MoveCouriersCommandDto $moveCouriersCommandDto): void
     {
-        Yii::$app->db->transaction(function () {
+        $this->unitOfWork->transaction(function () {
             $orders = $this->orderRepository->getAssignedOrders();
             foreach ($orders as $order) {
                 $courier = $this->courierRepository->getById($order->getCourierId());
