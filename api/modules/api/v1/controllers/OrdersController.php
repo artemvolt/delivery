@@ -12,6 +12,7 @@ use app\common\Core\Application\UseCases\Commands\CreateOrder\CreateOrderCommand
 use app\common\Core\Application\UseCases\Commands\CreateOrder\CreateOrderCommandHandlerInterface;
 use app\common\Core\Application\UseCases\Queries\GetUncompletedOrders\GetUncompletedOrdersQueryDto;
 use app\common\Core\Application\UseCases\Queries\GetUncompletedOrders\GetUncompletedOrdersQueryHandlerInterface;
+use app\common\Core\Domain\Model\SharedKernel\LocationVO;
 use DomainException;
 use yii\rest\Controller;
 
@@ -33,7 +34,7 @@ final class OrdersController extends BaseApiController implements OrdersControll
             $this->createOrderCommandHandler->handle(
                 new CreateOrderCommandDto(
                     basketId: rand(1, 1000),
-                    street: "Customer street #" . rand(1, 1000),
+                    street: $this->randomStreet(),
                 )
             );
             $this->response->statusCode = 201;
@@ -58,5 +59,21 @@ final class OrdersController extends BaseApiController implements OrdersControll
         }
 
         return $resultOrders;
+    }
+
+    private function randomStreet(): string
+    {
+        $streets = [
+            'Тестировочная',
+            'Айтишная',
+            'Эйчарная',
+            'Аналитическая',
+            'Нагрузочная',
+            'Серверная',
+            'Мобильная',
+            'Бажная'
+        ];
+        $randIndex = array_rand($streets);
+        return $streets[$randIndex];
     }
 }
