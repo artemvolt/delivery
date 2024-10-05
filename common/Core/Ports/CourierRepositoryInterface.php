@@ -35,4 +35,9 @@ interface CourierRepositoryInterface
      * @return CourierAggregate[]
      */
     public function getBusyCouriers(): array;
+
+    /**
+     * @return CourierAggregate[]
+     */
+    public function getAllCouriers(): array;
 }
