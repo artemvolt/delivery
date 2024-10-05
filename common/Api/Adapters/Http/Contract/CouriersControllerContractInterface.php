@@ -31,5 +31,5 @@ interface CouriersControllerContractInterface
             ),
         ],
     )]
-    public function actionAll();
+    public function actionGetAll();
 }

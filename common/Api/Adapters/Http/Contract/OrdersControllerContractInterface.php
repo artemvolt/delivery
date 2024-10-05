@@ -52,5 +52,5 @@ interface OrdersControllerContractInterface
             ),
         ],
     )]
-    public function actionActive();
+    public function actionGetAllActive();
 }

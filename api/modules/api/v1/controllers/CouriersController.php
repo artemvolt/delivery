@@ -24,7 +24,7 @@ final class CouriersController extends BaseApiController implements CouriersCont
         parent::__construct($id, $module, $config);
     }
 
-    public function actionAll()
+    public function actionGetAll()
     {
         $couriers = $this->getAllCouriersQueryHandler->handle(new GetAllCouriersQueryDto())->couriers;
 

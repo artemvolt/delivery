@@ -42,7 +42,7 @@ final class OrdersController extends BaseApiController implements OrdersControll
         }
     }
 
-    public function actionActive()
+    public function actionGetAllActive()
     {
         $orders = $this->getUncompletedOrdersQueryHandler->handle(new GetUncompletedOrdersQueryDto())->orders;
 

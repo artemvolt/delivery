@@ -57,17 +57,18 @@ $config = [
             'showScriptName' => false,
             'rules' => [
                 [
-                    'pattern' => 'api/v1/orders',
-                    'route' => 'api/v1/orders/create',
-                ],
-                [
                     'pattern' => 'api/v1/couriers',
-                    'route' => 'api/v1/couriers/all',
+                    'route' => 'api/v1/couriers/get-all-active',
                     'suffix' => '/',
                 ],
                 [
                     'pattern' => 'api/v1/orders',
                     'route' => 'api/v1/orders/create',
+                    'suffix' => '/',
+                ],
+                [
+                    'pattern' => 'api/v1/couriers',
+                    'route' => 'api/v1/couriers/get-all',
                     'suffix' => '/',
                 ],
             ],
