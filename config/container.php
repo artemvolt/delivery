@@ -8,6 +8,8 @@ use app\common\Core\Application\UseCases\Commands\CreateOrder\CreateOrderCommand
 use app\common\Core\Application\UseCases\Commands\CreateOrder\CreateOrderCommandHandlerInterface;
 use app\common\Core\Application\UseCases\Commands\MoveCouriers\MoveCouriersCommandHandler;
 use app\common\Core\Application\UseCases\Commands\MoveCouriers\MoveCouriersCommandHandlerInterface;
+use app\common\Core\Application\UseCases\Queries\GetAllCouriers\GetAllCouriersQueryHandler;
+use app\common\Core\Application\UseCases\Queries\GetAllCouriers\GetAllCouriersQueryHandlerInterface;
 use app\common\Core\Application\UseCases\Queries\GetBusyCouriers\GetBusyCouriersQueryHandler;
 use app\common\Core\Application\UseCases\Queries\GetBusyCouriers\GetBusyCouriersQueryHandlerInterface;
 use app\common\Core\Application\UseCases\Queries\GetUncompletedOrders\GetUncompletedOrdersQueryHandler;
@@ -32,5 +34,6 @@ return [
         CourierRepositoryInterface::class => CourierRepository::class,
         OrderRepositoryInterface::class => OrderRepository::class,
         UnitOfWorkInterface::class => UnitOfWork::class,
+        GetAllCouriersQueryHandlerInterface::class => GetAllCouriersQueryHandler::class,
     ],
 ];

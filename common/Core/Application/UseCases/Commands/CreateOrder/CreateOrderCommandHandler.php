@@ -6,6 +6,7 @@ namespace app\common\Core\Application\UseCases\Commands\CreateOrder;
 use app\common\Core\Domain\Model\SharedKernel\LocationVO;
 use app\common\Core\Domain\OrderAggregate\OrderAggregate;
 use app\common\Core\Ports\OrderRepositoryInterface;
+use DomainException;
 
 final class CreateOrderCommandHandler implements CreateOrderCommandHandlerInterface
 {
@@ -14,6 +15,9 @@ final class CreateOrderCommandHandler implements CreateOrderCommandHandlerInterf
     ) {
     }
 
+    /**
+     * @throws DomainException
+     */
     public function handle(CreateOrderCommandDto $createOrderCommandDto): void
     {
         $this->orderRepository->addOrder(

@@ -94,4 +94,12 @@ final class CourierRepository implements CourierRepositoryInterface
             CourierModel::findAll(['status_id' => CourierStatusEnum::busy->value])
         );
     }
+
+    public function getAllCouriers(): array
+    {
+        return array_map(
+            fn (CourierModel $courierModel) => $this->mapToEntity($courierModel),
+            CourierModel::find()->all()
+        );
+    }
 }
