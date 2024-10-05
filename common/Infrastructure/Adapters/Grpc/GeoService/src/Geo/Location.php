@@ -11,7 +11,7 @@ use Google\Protobuf\Internal\GPBUtil;
 /**
  * Geolocation
  *
- * Generated from protobuf message <code>geo.Location</code>
+ * Generated from protobuf message <code>Location</code>
  */
 class Location extends \Google\Protobuf\Internal\Message
 {

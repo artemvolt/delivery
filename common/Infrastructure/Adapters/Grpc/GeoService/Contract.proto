@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package geo;
+option php_namespace = 'Geo';
 
 // The Geo service definition.
 service Geo {

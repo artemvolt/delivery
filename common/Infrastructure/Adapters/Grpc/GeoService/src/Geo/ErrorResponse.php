@@ -9,7 +9,7 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Generated from protobuf message <code>geo.ErrorResponse</code>
+ * Generated from protobuf message <code>ErrorResponse</code>
  */
 class ErrorResponse extends \Google\Protobuf\Internal\Message
 {

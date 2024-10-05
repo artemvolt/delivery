@@ -11,12 +11,12 @@ use Google\Protobuf\Internal\GPBUtil;
 /**
  * Response
  *
- * Generated from protobuf message <code>geo.GetGeolocationReply</code>
+ * Generated from protobuf message <code>GetGeolocationReply</code>
  */
 class GetGeolocationReply extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Generated from protobuf field <code>.geo.Location Location = 1;</code>
+     * Generated from protobuf field <code>.Location Location = 1;</code>
      */
     protected $Location = null;
 
@@ -35,7 +35,7 @@ class GetGeolocationReply extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>.geo.Location Location = 1;</code>
+     * Generated from protobuf field <code>.Location Location = 1;</code>
      * @return \Geo\Location
      */
     public function getLocation()
@@ -44,7 +44,7 @@ class GetGeolocationReply extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>.geo.Location Location = 1;</code>
+     * Generated from protobuf field <code>.Location Location = 1;</code>
      * @param \Geo\Location $var
      * @return $this
      */

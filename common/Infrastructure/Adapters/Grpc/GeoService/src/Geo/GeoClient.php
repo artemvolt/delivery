@@ -25,7 +25,7 @@ class GeoClient extends \Grpc\BaseStub {
      */
     public function GetGeolocation(\Geo\GetGeolocationRequest $argument,
       $metadata = [], $options = []) {
-        return $this->_simpleRequest('/geo.Geo/GetGeolocation',
+        return $this->_simpleRequest('/Geo/GetGeolocation',
         $argument,
         ['\Geo\GetGeolocationReply', 'decode'],
         $metadata, $options);
