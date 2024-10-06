@@ -13,11 +13,13 @@ use app\common\Core\Ports\OrderRepositoryInterface;
 use app\common\Infrastructure\Adapters\Postgres\Models\OrderModel;
 use DomainException;
 use Ramsey\Uuid\UuidFactory;
+use Ramsey\Uuid\UuidInterface;
 
 final class OrderRepository implements OrderRepositoryInterface
 {
-    public function __construct()
-    {
+    public function __construct(
+        private readonly UuidFactory $uuidFactory,
+    ) {
     }
 
     public function addOrder(OrderAggregate $order): void
@@ -46,7 +48,7 @@ final class OrderRepository implements OrderRepositoryInterface
         }
     }
 
-    public function getById(int $orderId): ?OrderAggregate
+    public function getById(UuidInterface $orderId): ?OrderAggregate
     {
         $orderModel = OrderModel::findOne(['id' => $orderId]);
         if (null === $orderModel) {
@@ -76,6 +78,7 @@ final class OrderRepository implements OrderRepositoryInterface
      */
     private function mapToModel(OrderAggregate $order, OrderModel $orderModel): OrderModel
     {
+        $orderModel->id = $order->getId()->toString();
         $orderModel->location_x = $order->getLocation()->getX()->getValue();
         $orderModel->location_y = $order->getLocation()->getY()->getValue();
         $orderModel->status_id = $order->getStatus()->getId();
@@ -88,7 +91,7 @@ final class OrderRepository implements OrderRepositoryInterface
         $uuidFactory = new UuidFactory();
 
         return OrderAggregate::createExisting(
-            id: $orderModel->id,
+            id: $this->uuidFactory->fromString($orderModel->id),
             location: new LocationVO(
                 x: new CoordinateVO($orderModel->location_x),
                 y: new CoordinateVO($orderModel->location_y),

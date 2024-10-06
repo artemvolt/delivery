@@ -14,6 +14,7 @@ use app\common\Core\Application\UseCases\Queries\GetUncompletedOrders\GetUncompl
 use app\common\Core\Application\UseCases\Queries\GetUncompletedOrders\GetUncompletedOrdersQueryHandlerInterface;
 use app\common\Core\Domain\Model\SharedKernel\LocationVO;
 use DomainException;
+use Ramsey\Uuid\UuidFactory;
 use yii\rest\Controller;
 
 final class OrdersController extends BaseApiController implements OrdersControllerContractInterface
@@ -23,6 +24,7 @@ final class OrdersController extends BaseApiController implements OrdersControll
         $module,
         private readonly CreateOrderCommandHandlerInterface $createOrderCommandHandler,
         private readonly GetUncompletedOrdersQueryHandlerInterface $getUncompletedOrdersQueryHandler,
+        private readonly UuidFactory $uuidFactory,
         $config = [])
     {
         parent::__construct($id, $module, $config);
@@ -33,7 +35,7 @@ final class OrdersController extends BaseApiController implements OrdersControll
         try {
             $this->createOrderCommandHandler->handle(
                 new CreateOrderCommandDto(
-                    basketId: rand(1, 1000),
+                    basketId: $this->uuidFactory->uuid7(),
                     street: $this->randomStreet(),
                 )
             );

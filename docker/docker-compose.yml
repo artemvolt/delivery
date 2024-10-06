@@ -12,6 +12,8 @@ services:
       - "./../docker/nginx/include:/etc/nginx/include"
     links:
       - php
+    networks:
+      - delivery_network
   php:
     container_name: delivery_php
     build: "./php"
@@ -22,7 +24,8 @@ services:
     links:
       - db
       - db-test
-
+    networks:
+      - delivery_network
   db:
     container_name: delivery_db
     image: postgres:latest
@@ -33,6 +36,8 @@ services:
       - POSTGRES_PASSWORD=delivery
     volumes:
       - "./../docker/mount/postgres:/var/lib/postgresql/data"
+    networks:
+      - delivery_network
 
   db-test:
     container_name: delivery_db_test
@@ -44,3 +49,9 @@ services:
       - POSTGRES_PASSWORD=delivery
     volumes:
       - "./../docker/mount/postgres-test:/var/lib/postgresql/data"
+    networks:
+      - delivery_network
+
+networks:
+  delivery_network:
+    external: true

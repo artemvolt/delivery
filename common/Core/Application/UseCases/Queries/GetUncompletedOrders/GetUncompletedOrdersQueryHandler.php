@@ -16,6 +16,9 @@ final class GetUncompletedOrdersQueryHandler implements GetUncompletedOrdersQuer
 
     public function handle(GetUncompletedOrdersQueryDto $getUncompletedOrdersQueryDto): GetUncompletedOrdersQueryResponse
     {
+        /**
+         * @var OrderAggregate[] $uncompletedOrders
+         */
         $uncompletedOrders = ArrayHelper::merge(
             $this->orderRepository->getCreatedOrders(),
             $this->orderRepository->getAssignedOrders(),
@@ -25,7 +28,7 @@ final class GetUncompletedOrdersQueryHandler implements GetUncompletedOrdersQuer
 
         foreach ($uncompletedOrders as $uncompletedOrder) {
             $ordersForResponse[] = new OrderDto(
-                id: $uncompletedOrder->getId(),
+                id: $uncompletedOrder->getId()->toString(),
                 location: new LocationDto(
                     x: $uncompletedOrder->getLocation()->getX()->getValue(),
                     y: $uncompletedOrder->getLocation()->getY()->getValue(),

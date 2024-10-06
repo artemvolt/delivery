@@ -7,6 +7,7 @@ namespace app\common\Core\Ports;
 use app\common\Core\Domain\OrderAggregate\OrderAggregate;
 use Codeception\Exception\ContentNotFound;
 use DomainException;
+use Ramsey\Uuid\UuidInterface;
 
 interface OrderRepositoryInterface
 {
@@ -20,7 +21,7 @@ interface OrderRepositoryInterface
      */
     public function updateOrder(OrderAggregate $order): void;
 
-    public function getById(int $orderId): ?OrderAggregate;
+    public function getById(UuidInterface $orderId): ?OrderAggregate;
 
     /**
      * @return OrderAggregate[]

@@ -13,13 +13,14 @@ class m240926_053509_order extends Migration
     public function safeUp()
     {
         $this->createTable('orders', [
-            'id' => $this->primaryKey(),
             'location_x' => $this->integer(),
             'location_y' => $this->integer(),
             'status_id' => $this->integer(),
         ]);
 
         $this->addColumn('orders', 'courier_id', 'UUID');
+        $this->addColumn('orders', 'id', 'UUID');
+        $this->addPrimaryKey('pk_orders__id', 'orders', 'id');
 
         $this->addForeignKey(
             'fk_orders__courier_id',

@@ -17,15 +17,16 @@ class OrderAggregateTest extends Unit
 {
     public function testCreate()
     {
+        $uuidFactory = new UuidFactory();
         $newOrder = OrderAggregate::create(
-            id: 1,
+            id: $uuid = $uuidFactory->uuid7(),
             location: new LocationVO(
                 new CoordinateVO(1),
                 new CoordinateVO(1),
             )
         );
 
-        $this->assertEquals(1, $newOrder->getId());
+        $this->assertEquals($uuid->toString(), $newOrder->getId()->toString());
         $this->assertEquals(1, $newOrder->getLocation()->getX()->getValue());
         $this->assertEquals(1, $newOrder->getLocation()->getY()->getValue());
         $this->assertTrue($newOrder->getStatus()->isEqual(OrderStatusEntity::created()));
@@ -37,7 +38,7 @@ class OrderAggregateTest extends Unit
         $uuid = $uuidFactory->uuid7();
 
         $newOrder = OrderAggregate::create(
-            id: 1,
+            id: $uuid,
             location: new LocationVO(
                 new CoordinateVO(1),
                 new CoordinateVO(1),
@@ -60,8 +61,10 @@ class OrderAggregateTest extends Unit
 
     public function testCorrectCompleted()
     {
+        $uuidFactory = new UuidFactory();
+        $uuid = $uuidFactory->uuid7();
         $newOrder = OrderAggregate::create(
-            id: 1,
+            id: $uuid,
             location: new LocationVO(
                 new CoordinateVO(1),
                 new CoordinateVO(1),
@@ -84,8 +87,10 @@ class OrderAggregateTest extends Unit
 
     public function testInvalidCompleted()
     {
+        $uuidFactory = new UuidFactory();
+        $uuid = $uuidFactory->uuid7();
         $newOrder = OrderAggregate::create(
-            id: 1,
+            id: $uuid,
             location: new LocationVO(
                 new CoordinateVO(1),
                 new CoordinateVO(1),

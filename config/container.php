@@ -25,6 +25,10 @@ use app\common\Infrastructure\Adapters\Postgres\Repositories\OrderRepository;
 use common\Infrastructure\Adapters\Postgres\UnitOfWork;
 use common\Infrastructure\Adapters\Postgres\UnitOfWorkInterface;
 use Grpc\ChannelCredentials;
+use Rdkafka\Conf;
+use RdKafka\Consumer;
+use RdKafka\TopicConf;
+use yii\di\Container;
 
 return [
     'definitions' => [
@@ -40,11 +44,20 @@ return [
         GetAllCouriersQueryHandlerInterface::class => GetAllCouriersQueryHandler::class,
         GeoServiceInterface::class => function () {
             return new GeoService(
-                host: 'localhost:8084',
+                host: 'busket-geo-1:5004',
                 options: [
                     'credentials' => ChannelCredentials::createInsecure()
                 ],
             );
+        },
+        'kafka.basket.consumer' => function (Container $container) {
+            $conf = new Conf();
+            $conf->set('group.id', 'myConsumerGroup');
+
+            $kafka = new Consumer($conf);
+            $kafka->addBrokers('kafka:19092');
+
+            return $kafka;
         },
     ],
 ];

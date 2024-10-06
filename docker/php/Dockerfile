@@ -10,3 +10,6 @@ WORKDIR /var/www
 
 RUN apt-get install -y protobuf-compiler \
     && pecl install grpc && docker-php-ext-enable grpc
+
+RUN apt-get install librdkafka-dev && pecl install rdkafka
+RUN docker-php-ext-enable rdkafka
