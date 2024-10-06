@@ -4,11 +4,7 @@ declare(strict_types=1);
 
 namespace app\commands;
 
-use app\common\Api\Adapters\Kafka\BasketConfirmedConsumer;
-use app\common\Core\Application\UseCases\Commands\CreateOrder\CreateOrderCommandHandlerInterface;
-use Kafka\Client;
-use Monolog\Handler\StreamHandler;
-use Monolog\Logger;
+use app\common\Api\Adapters\Kafka\BasketConfirmed\BasketConfirmedConsumer;
 use RdKafka\Conf;
 use RdKafka\Consumer;
 use Yii;

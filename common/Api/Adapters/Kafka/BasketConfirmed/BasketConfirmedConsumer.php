@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace app\common\Api\Adapters\Kafka;
+namespace app\common\Api\Adapters\Kafka\BasketConfirmed;
 
 use app\common\Core\Application\UseCases\Commands\CreateOrder\CreateOrderCommandDto;
 use app\common\Core\Application\UseCases\Commands\CreateOrder\CreateOrderCommandHandlerInterface;
