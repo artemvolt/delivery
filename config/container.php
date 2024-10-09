@@ -18,10 +18,13 @@ use app\common\Core\Domain\Services\Dispatch\DispatchService;
 use app\common\Core\Domain\Services\Dispatch\DispatchServiceInterface;
 use app\common\Core\Ports\CourierRepositoryInterface;
 use app\common\Core\Ports\OrderRepositoryInterface;
+use app\common\Infrastructure\Adapters\Grpc\GeoService\GeoService;
+use app\common\Infrastructure\Adapters\Grpc\GeoService\GeoServiceInterface;
 use app\common\Infrastructure\Adapters\Postgres\Repositories\CourierRepository;
 use app\common\Infrastructure\Adapters\Postgres\Repositories\OrderRepository;
 use common\Infrastructure\Adapters\Postgres\UnitOfWork;
 use common\Infrastructure\Adapters\Postgres\UnitOfWorkInterface;
+use Grpc\ChannelCredentials;
 
 return [
     'definitions' => [
@@ -35,5 +38,13 @@ return [
         OrderRepositoryInterface::class => OrderRepository::class,
         UnitOfWorkInterface::class => UnitOfWork::class,
         GetAllCouriersQueryHandlerInterface::class => GetAllCouriersQueryHandler::class,
+        GeoServiceInterface::class => function () {
+            return new GeoService(
+                host: 'localhost:8084',
+                options: [
+                    'credentials' => ChannelCredentials::createInsecure()
+                ],
+            );
+        },
     ],
 ];

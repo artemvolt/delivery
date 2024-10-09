@@ -21,7 +21,10 @@
         "ramsey/uuid": "^4.7",
         "webmozart/assert": "^1.11",
         "zircote/swagger-php": "4.7.10",
-        "bower-asset/swagger-ui": "^5.17"
+        "bower-asset/swagger-ui": "^5.17",
+        "grpc/grpc": "^1.57",
+        "ext-grpc": "*",
+        "google/protobuf": "^4.28"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
@@ -75,5 +78,11 @@
             "type": "composer",
             "url": "https://asset-packagist.org"
         }
-    ]
+    ],
+    "autoload": {
+        "psr-4": {
+            "Geo\\": "common/Infrastructure/Adapters/Grpc/GeoService/src/Geo",
+            "GPBMetadata\\": "common/Infrastructure/Adapters/Grpc/GeoService/src/GPBMetadata"
+        }
+    }
 }
