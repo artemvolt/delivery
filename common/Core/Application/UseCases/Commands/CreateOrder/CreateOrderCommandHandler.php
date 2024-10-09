@@ -3,10 +3,10 @@ declare(strict_types=1);
 
 namespace app\common\Core\Application\UseCases\Commands\CreateOrder;
 
-use app\common\Core\Domain\Model\SharedKernel\LocationVO;
 use app\common\Core\Domain\OrderAggregate\OrderAggregate;
 use app\common\Core\Ports\OrderRepositoryInterface;
 use app\common\Infrastructure\Adapters\Grpc\GeoService\GeoServiceInterface;
+use app\common\Infrastructure\Exceptions\InfrastructureExceptionInterface;
 use DomainException;
 
 final class CreateOrderCommandHandler implements CreateOrderCommandHandlerInterface
@@ -19,6 +19,7 @@ final class CreateOrderCommandHandler implements CreateOrderCommandHandlerInterf
 
     /**
      * @throws DomainException
+     * @throws InfrastructureExceptionInterface
      */
     public function handle(CreateOrderCommandDto $createOrderCommandDto): void
     {

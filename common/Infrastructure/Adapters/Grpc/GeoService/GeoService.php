@@ -6,6 +6,7 @@ namespace app\common\Infrastructure\Adapters\Grpc\GeoService;
 
 use app\common\Core\Domain\Model\SharedKernel\CoordinateVO;
 use app\common\Core\Domain\Model\SharedKernel\LocationVO;
+use app\common\Infrastructure\Exceptions\InfrastructureException;
 use Geo\GeoClient;
 use Geo\GetGeolocationReply;
 use Geo\GetGeolocationRequest;
@@ -30,7 +31,7 @@ final class GeoService implements GeoServiceInterface
          */
         list($response, $status) = $client->GetGeolocation($request)->wait();
         if (null === $response) {
-            throw new RuntimeException($status->details);
+            throw new InfrastructureException($status->details);
         }
 
         $locationResponse = $response->getLocation();
