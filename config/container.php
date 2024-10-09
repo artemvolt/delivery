@@ -24,8 +24,10 @@ use app\common\Core\Ports\OrderRepositoryInterface;
 use app\common\Infrastructure\Adapters\Grpc\GeoService\GeoService;
 use app\common\Infrastructure\Adapters\Grpc\GeoService\GeoServiceInterface;
 use app\common\Infrastructure\Adapters\Kafka\OrderCompleted\MessageBusProducer;
+use app\common\Infrastructure\Adapters\Postgres\DomainEventsDispatcher;
 use app\common\Infrastructure\Adapters\Postgres\Repositories\CourierRepository;
 use app\common\Infrastructure\Adapters\Postgres\Repositories\OrderRepository;
+use common\Infrastructure\Adapters\Postgres\DomainEventsDispatcherInterface;
 use common\Infrastructure\Adapters\Postgres\UnitOfWork;
 use common\Infrastructure\Adapters\Postgres\UnitOfWorkInterface;
 use Grpc\ChannelCredentials;
@@ -48,9 +50,7 @@ return [
         UnitOfWorkInterface::class => function (Container $container) {
             return new UnitOfWork(
                 connection: Yii::$app->db,
-                domainHandlersMap: [
-                    OrderCompletedEvent::class => OrderCompletedDomainEventHandler::class,
-                ],
+                domainEventsDispatcher: $container->get(DomainEventsDispatcherInterface::class),
             );
         },
         GetAllCouriersQueryHandlerInterface::class => GetAllCouriersQueryHandler::class,
@@ -81,4 +81,13 @@ return [
         },
         MessageBusProducerInterface::class => MessageBusProducer::class,
     ],
+    'singletons' => [
+        DomainEventsDispatcherInterface::class => function () {
+            return new DomainEventsDispatcher(
+                domainHandlersMap: [
+                    OrderCompletedEvent::class => OrderCompletedDomainEventHandler::class,
+                ],
+            );
+        },
+    ]
 ];

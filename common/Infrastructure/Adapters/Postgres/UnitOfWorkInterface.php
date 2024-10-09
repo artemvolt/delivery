@@ -7,6 +7,4 @@ namespace common\Infrastructure\Adapters\Postgres;
 interface UnitOfWorkInterface
 {
     public function transaction(callable $function): mixed;
-
-    public function publishDomainEvents(array $events): void;
 }

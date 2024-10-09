@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace app\common\Core\Domain\OrderAggregate;
 
+use app\common\Core\Domain\Aggregates\AggregateInterface;
 use app\common\Core\Domain\CourierAggregate\CourierAggregate;
 use app\common\Core\Domain\CourierAggregate\CourierStatusEntity;
 use app\common\Core\Domain\Model\SharedKernel\LocationVO;
 use app\common\Core\Domain\OrderAggregate\Events\OrderCompletedEvent;
 use DomainException;
-use Ramsey\Uuid\UuidFactory;
 use Ramsey\Uuid\UuidInterface;
 
-final class OrderAggregate
+final class OrderAggregate implements AggregateInterface
 {
     private array $domainEvents = [];
 
@@ -100,9 +100,6 @@ final class OrderAggregate
         );
     }
 
-    /**
-     * @return OrderCompletedEvent[]
-     */
     public function getEvents(): array
     {
         return $this->domainEvents;
