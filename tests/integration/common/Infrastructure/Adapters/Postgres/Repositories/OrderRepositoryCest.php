@@ -15,6 +15,8 @@ use app\common\Infrastructure\Adapters\Postgres\Models\OrderModel;
 use app\common\Infrastructure\Adapters\Postgres\Repositories\CourierRepository;
 use app\common\Infrastructure\Adapters\Postgres\Repositories\OrderRepository;
 use IntegrationTester;
+use Ramsey\Uuid\UuidFactory;
+use Ramsey\Uuid\UuidInterface;
 
 /**
  * @TODO переделать тесты на запросы в бд,
@@ -30,7 +32,9 @@ class OrderRepositoryCest
         OrderModel::deleteAll();
         CourierModel::deleteAll();
 
-        $this->order = $this->createOrder(1, 1, 1);
+        $uuidFactory = new UuidFactory();
+
+        $this->order = $this->createOrder($uuidFactory->uuid7(), 1, 1);
 
         $this->courier = CourierAggregate::create(
             name: 'test',
@@ -44,13 +48,13 @@ class OrderRepositoryCest
 
     public function testAddOrder(IntegrationTester $I)
     {
-        $repository = new OrderRepository();
+        $repository = new OrderRepository(new UuidFactory());
         $repository->addOrder($this->order);
 
         $I->assertCount(1, OrderModel::find()->all());
         $orderModel = OrderModel::findOne(['id' => $this->order->getId()]);
         $I->assertNotNull($orderModel);
-        $I->assertEquals($this->order->getId(), $orderModel->id);
+        $I->assertEquals($this->order->getId()->toString(), $orderModel->id);
         $I->assertEquals($this->order->getStatus()->getId(), $orderModel->status_id);
         $I->assertEquals($this->order->getLocation()->getX()->getValue(), $orderModel->location_x);
         $I->assertEquals($this->order->getLocation()->getY()->getValue(), $orderModel->location_y);
@@ -62,13 +66,13 @@ class OrderRepositoryCest
         $courierRepository = new CourierRepository();
         $courierRepository->addCourier($this->courier);
 
-        $repository = new OrderRepository();
+        $repository = new OrderRepository(new UuidFactory());
         $repository->addOrder($this->order);
 
         $I->assertCount(1, OrderModel::find()->all());
         $orderModel = OrderModel::findOne(['id' => $this->order->getId()]);
         $I->assertNotNull($orderModel);
-        $I->assertEquals($this->order->getId(), $orderModel->id);
+        $I->assertEquals($this->order->getId()->toString(), $orderModel->id);
         $I->assertEquals($this->order->getStatus()->getId(), $orderModel->status_id);
         $I->assertEquals($this->order->getLocation()->getX()->getValue(), $orderModel->location_x);
         $I->assertEquals($this->order->getLocation()->getY()->getValue(), $orderModel->location_y);
@@ -90,16 +94,16 @@ class OrderRepositoryCest
 
     public function testGetById(IntegrationTester $I)
     {
-        $repository = new OrderRepository();
+        $repository = new OrderRepository(new UuidFactory());
         $repository->addOrder($this->order);
 
         $courierRepository = new CourierRepository();
         $courierRepository->addCourier($this->courier);
 
-        $repository = new OrderRepository();
+        $repository = new OrderRepository(new UuidFactory());
         $foundOrder = $repository->getById($this->order->getId());
 
-        $I->assertEquals($foundOrder->getId(), $this->order->getId());
+        $I->assertEquals($foundOrder->getId()->toString(), $this->order->getId());
         $I->assertTrue($foundOrder->getStatus()->isEqual($this->order->getStatus()));
         $I->assertTrue($foundOrder->getLocation()->isEqual($this->order->getLocation()));
         $I->assertNull($foundOrder->getCourierId());
@@ -107,10 +111,10 @@ class OrderRepositoryCest
         $this->order->assignCourier($this->courier);
         $repository->updateOrder($this->order);
 
-        $repository = new OrderRepository();
+        $repository = new OrderRepository(new UuidFactory());
         $foundOrder = $repository->getById($this->order->getId());
 
-        $I->assertEquals($foundOrder->getId(), $this->order->getId());
+        $I->assertEquals($foundOrder->getId()->toString(), $this->order->getId());
         $I->assertTrue($foundOrder->getStatus()->isEqual($this->order->getStatus()));
         $I->assertTrue($foundOrder->getLocation()->isEqual($this->order->getLocation()));
         $I->assertNotNull($foundOrder->getCourierId());
@@ -119,10 +123,10 @@ class OrderRepositoryCest
 
     public function testGetCreatedOrders(IntegrationTester $I)
     {
-        $repository = new OrderRepository();
+        $repository = new OrderRepository($uuidFactory = new UuidFactory());
         $repository->addOrder($this->order);
 
-        $orderCreated = $this->createOrder(2, 1, 1);
+        $orderCreated = $this->createOrder($uuidFactory->uuid7(), 1, 1);
         $repository->addOrder($orderCreated);
 
         $foundCreated = $repository->getCreatedOrders();
@@ -143,10 +147,10 @@ class OrderRepositoryCest
 
     public function testGetAssignedOrders(IntegrationTester $I)
     {
-        $repository = new OrderRepository();
+        $repository = new OrderRepository($uuidFactory = new UuidFactory());
         $repository->addOrder($this->order);
 
-        $orderCreated = $this->createOrder(2, 1, 1);
+        $orderCreated = $this->createOrder($uuidFactory->uuid7(), 1, 1);
         $repository->addOrder($orderCreated);
 
         $courierRepository = new CourierRepository();
@@ -163,7 +167,7 @@ class OrderRepositoryCest
         $I->assertTrue($foundAssigned[1]->getStatus()->isEqual(OrderStatusEntity::assigned()));
     }
 
-    private function createOrder(int $id, int $x, int $y)
+    private function createOrder(UuidInterface $id, int $x, int $y)
     {
         return OrderAggregate::create(
             id: $id,

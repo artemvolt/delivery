@@ -8,12 +8,13 @@ use app\common\Core\Domain\CourierAggregate\CourierAggregate;
 use app\common\Core\Domain\CourierAggregate\CourierStatusEntity;
 use app\common\Core\Domain\Model\SharedKernel\LocationVO;
 use DomainException;
+use Ramsey\Uuid\UuidFactory;
 use Ramsey\Uuid\UuidInterface;
 
 final class OrderAggregate
 {
     private function __construct(
-        private int $id,
+        private UuidInterface $id,
         private LocationVO $location,
         private OrderStatusEntity $status,
         private ?UuidInterface $courierId,
@@ -21,7 +22,7 @@ final class OrderAggregate
     }
 
     public static function create(
-        int $id,
+        UuidInterface $id,
         LocationVO $location,
     ): self
     {
@@ -34,7 +35,7 @@ final class OrderAggregate
     }
 
     public static function createExisting(
-        int $id,
+        UuidInterface $id,
         LocationVO $location,
         OrderStatusEntity $status,
         ?UuidInterface $courierId,
@@ -48,7 +49,7 @@ final class OrderAggregate
         );
     }
 
-    public function getId(): int
+    public function getId(): UuidInterface
     {
         return $this->id;
     }

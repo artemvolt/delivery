@@ -12,7 +12,8 @@ use OpenApi\Attributes as OA;
         new OA\Property(
             property: 'id',
             description: "Идентификатор",
-            type: 'int',
+            type: 'string',
+            format: 'uuid',
             nullable: false,
         ),
         new OA\Property(
@@ -25,7 +26,7 @@ use OpenApi\Attributes as OA;
 final class OrderDto
 {
     public function __construct(
-        public readonly int $id,
+        public readonly string $id,
         public readonly LocationDto $location,
     ) {
     }

@@ -12,6 +12,7 @@ use app\common\Core\Domain\Model\SharedKernel\LocationVO;
 use app\common\Core\Domain\OrderAggregate\OrderAggregate;
 use app\common\Core\Domain\Services\Dispatch\DispatchService;
 use Codeception\Test\Unit;
+use Ramsey\Uuid\UuidFactory;
 
 class AssignCourierOnFirstOrderCommandServiceTest extends Unit
 {
@@ -70,9 +71,10 @@ class AssignCourierOnFirstOrderCommandServiceTest extends Unit
         );
 
         $service = new DispatchService();
+        $uuidFactory = new UuidFactory();
         $winnerCourier = $service->getBestCourierForAssign(
             order: OrderAggregate::create(
-                id: 1,
+                id: $uuidFactory->uuid7(),
                 location: new LocationVO(
                     x: new CoordinateVO(5),
                     y: new CoordinateVO(5),
