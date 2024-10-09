@@ -4,14 +4,21 @@ declare(strict_types=1);
 
 namespace app\common\Core\Domain\CourierAggregate;
 
+use app\common\Core\Domain\Aggregates\AggregateInterface;
+use app\common\Core\Domain\Events\DomainEventInterface;
 use app\common\Core\Domain\Model\SharedKernel\CoordinateVO;
 use app\common\Core\Domain\Model\SharedKernel\LocationVO;
 use DomainException;
 use Ramsey\Uuid\UuidFactory;
 use Ramsey\Uuid\UuidInterface;
 
-class CourierAggregate
+class CourierAggregate implements AggregateInterface
 {
+    /**
+     * @var DomainEventInterface[] $domainEvents
+     */
+    private array $domainEvents = [];
+
     private function __construct(
         private UuidInterface $id,
         private string $name,
@@ -173,5 +180,15 @@ class CourierAggregate
     public function getTransport(): TransportEntity
     {
         return $this->transport;
+    }
+
+    public function getEvents(): array
+    {
+        return $this->domainEvents;
+    }
+
+    public function clearDomainEvents(): void
+    {
+        $this->domainEvents = [];
     }
 }

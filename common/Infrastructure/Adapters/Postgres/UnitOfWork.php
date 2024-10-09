@@ -9,11 +9,13 @@ final class UnitOfWork implements UnitOfWorkInterface
 {
     public function __construct(
         private readonly Connection $connection,
+        private readonly DomainEventsDispatcherInterface $domainEventsDispatcher,
     ) {
     }
 
     public function transaction(callable $function): mixed
     {
-        return $this->connection->transaction($function);
+        $this->connection->transaction($function);
+        $this->domainEventsDispatcher->publishDomainEvents();
     }
 }
