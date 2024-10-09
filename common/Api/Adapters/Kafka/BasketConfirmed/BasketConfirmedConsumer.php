@@ -7,6 +7,7 @@ namespace app\common\Api\Adapters\Kafka\BasketConfirmed;
 use app\common\Core\Application\UseCases\Commands\CreateOrder\CreateOrderCommandDto;
 use app\common\Core\Application\UseCases\Commands\CreateOrder\CreateOrderCommandHandlerInterface;
 use Ramsey\Uuid\UuidFactory;
+use Webmozart\Assert\Assert;
 use yii\helpers\Json;
 
 final class BasketConfirmedConsumer
@@ -22,6 +23,9 @@ final class BasketConfirmedConsumer
         $message = Json::decode($message);
         $basketUUid = $message['BasketId'] ?? "";
         $street = $message['Address']['Street'] ?? "";
+
+        Assert::notEmpty($basketUUid, 'BasketUuid must be set');
+        Assert::notEmpty($street, 'Street must be set');
 
         $this->createOrderCommandHandler->handle(
             new CreateOrderCommandDto(
