@@ -18,6 +18,7 @@ use Codeception\Stub;
 use Codeception\Stub\Expected;
 use Codeception\Test\Unit;
 use DomainException;
+use Ramsey\Uuid\UuidFactory;
 use \UnitTester;
 
 class AssignedOrdersOnCouriersCommandHandlerTest extends Unit
@@ -40,9 +41,10 @@ class AssignedOrdersOnCouriersCommandHandlerTest extends Unit
 
     public function testEmptyCouriers()
     {
+        $uuidFactory = new UuidFactory();
         $orderRepository = Stub::makeEmpty(OrderRepositoryInterface::class);
         $orderRepository->method('getCreatedOrders')->willReturn([
-            OrderAggregate::create(1, LocationVO::random()),
+            OrderAggregate::create($uuidFactory->uuid7(), LocationVO::random()),
         ]);
 
         $courierRepository = $this->makeEmpty(CourierRepositoryInterface::class);
@@ -61,19 +63,23 @@ class AssignedOrdersOnCouriersCommandHandlerTest extends Unit
 
     public function testAssign()
     {
+        $uuidFactory = new UuidFactory();
+
         $courier = CourierAggregate::create(
             "test",
             TransportEntity::car(),
             LocationVO::random()
         );
 
+        $firstUuid = $uuidFactory->uuid7();
+
         $orderRepository = Stub::makeEmpty(OrderRepositoryInterface::class, [
             'getCreatedOrders' => fn () => [
-                OrderAggregate::create(1, LocationVO::random()),
-                OrderAggregate::create(2, LocationVO::random()),
+                OrderAggregate::create($firstUuid, LocationVO::random()),
+                OrderAggregate::create($uuidFactory->uuid7(), LocationVO::random()),
             ],
-            'updateOrder' => function (OrderAggregate $orderAggregate) use ($courier) {
-                $this->assertEquals(1, $orderAggregate->getId());
+            'updateOrder' => function (OrderAggregate $orderAggregate) use ($courier, $firstUuid) {
+                $this->assertEquals($firstUuid->toString(), $orderAggregate->getId()->toString());
                 $this->assertEquals($courier->getId(), $orderAggregate->getCourierId());
             }
         ]);

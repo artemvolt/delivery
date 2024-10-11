@@ -8,6 +8,7 @@ use app\common\Core\Ports\OrderRepositoryInterface;
 use app\common\Infrastructure\Adapters\Grpc\GeoService\GeoServiceInterface;
 use app\common\Infrastructure\Exceptions\InfrastructureExceptionInterface;
 use DomainException;
+use Webmozart\Assert\Assert;
 
 final class CreateOrderCommandHandler implements CreateOrderCommandHandlerInterface
 {
@@ -23,6 +24,9 @@ final class CreateOrderCommandHandler implements CreateOrderCommandHandlerInterf
      */
     public function handle(CreateOrderCommandDto $createOrderCommandDto): void
     {
+        Assert::notEmpty($createOrderCommandDto->basketId, 'BasketUuid must be set');
+        Assert::notEmpty($createOrderCommandDto->street, 'Street must be set');
+
         $location = $this->geoService->getLocationByStreetName($createOrderCommandDto->street);
         $this->orderRepository->addOrder(
             OrderAggregate::create(

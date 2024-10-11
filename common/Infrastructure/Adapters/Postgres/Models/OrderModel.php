@@ -10,7 +10,7 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "orders".
  *
- * @property int $id
+ * @property string $id
  * @property int|null $location_x
  * @property int|null $location_y
  * @property int|null $status_id

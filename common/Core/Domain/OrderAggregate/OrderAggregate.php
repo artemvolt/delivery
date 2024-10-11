@@ -4,16 +4,20 @@ declare(strict_types=1);
 
 namespace app\common\Core\Domain\OrderAggregate;
 
+use app\common\Core\Domain\Aggregates\AggregateInterface;
 use app\common\Core\Domain\CourierAggregate\CourierAggregate;
 use app\common\Core\Domain\CourierAggregate\CourierStatusEntity;
 use app\common\Core\Domain\Model\SharedKernel\LocationVO;
+use app\common\Core\Domain\OrderAggregate\Events\OrderCompletedEvent;
 use DomainException;
 use Ramsey\Uuid\UuidInterface;
 
-final class OrderAggregate
+final class OrderAggregate implements AggregateInterface
 {
+    private array $domainEvents = [];
+
     private function __construct(
-        private int $id,
+        private UuidInterface $id,
         private LocationVO $location,
         private OrderStatusEntity $status,
         private ?UuidInterface $courierId,
@@ -21,7 +25,7 @@ final class OrderAggregate
     }
 
     public static function create(
-        int $id,
+        UuidInterface $id,
         LocationVO $location,
     ): self
     {
@@ -34,7 +38,7 @@ final class OrderAggregate
     }
 
     public static function createExisting(
-        int $id,
+        UuidInterface $id,
         LocationVO $location,
         OrderStatusEntity $status,
         ?UuidInterface $courierId,
@@ -48,7 +52,7 @@ final class OrderAggregate
         );
     }
 
-    public function getId(): int
+    public function getId(): UuidInterface
     {
         return $this->id;
     }
@@ -91,5 +95,15 @@ final class OrderAggregate
         }
 
         $this->status = OrderStatusEntity::completed();
+        $this->domainEvents[] = new OrderCompletedEvent(
+            order: $this
+        );
+    }
+
+    public function pullEvents(): array
+    {
+        $result = $this->domainEvents;
+        $this->domainEvents = [];
+        return $result;
     }
 }
