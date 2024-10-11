@@ -34,10 +34,7 @@ final class OrderRepository implements OrderRepositoryInterface
             );
         }
 
-        foreach ($order->getEvents() as $event) {
-            $this->domainEventsDispatcher->store($event);
-        }
-        $order->clearDomainEvents();
+        $this->domainEventsDispatcher->store($order->pullEvents());
     }
 
     public function updateOrder(OrderAggregate $order): void
@@ -53,10 +50,8 @@ final class OrderRepository implements OrderRepositoryInterface
                 implode(", ", $orderModel->getFirstErrors())
             );
         }
-        foreach ($order->getEvents() as $event) {
-            $this->domainEventsDispatcher->store($event);
-        }
-        $order->clearDomainEvents();
+
+        $this->domainEventsDispatcher->store($order->pullEvents());
     }
 
     public function getById(UuidInterface $orderId): ?OrderAggregate

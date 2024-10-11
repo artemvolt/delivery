@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace app\common\Infrastructure\Adapters\Postgres;
 
+use app\common\Core\Domain\Aggregates\AggregateInterface;
 use app\common\Core\Domain\Events\DomainEventInterface;
 use app\common\Infrastructure\Exceptions\InfrastructureException;
 use common\Infrastructure\Adapters\Postgres\DomainEventsDispatcherInterface;
@@ -19,9 +20,11 @@ final class DomainEventsDispatcher implements DomainEventsDispatcherInterface
     ) {
     }
 
-    public function store(DomainEventInterface $event): void
+    public function store(array $events): void
     {
-        $this->events[] = $event;
+        foreach ($events as $event) {
+            $this->events[] = $event;
+        }
     }
 
     public function publishDomainEvents(): void

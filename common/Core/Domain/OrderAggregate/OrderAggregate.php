@@ -100,13 +100,10 @@ final class OrderAggregate implements AggregateInterface
         );
     }
 
-    public function getEvents(): array
+    public function pullEvents(): array
     {
-        return $this->domainEvents;
-    }
-
-    public function clearDomainEvents(): void
-    {
+        $result = $this->domainEvents;
         $this->domainEvents = [];
+        return $result;
     }
 }

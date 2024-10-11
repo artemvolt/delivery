@@ -9,9 +9,8 @@ use app\common\Core\Domain\Events\DomainEventInterface;
 interface AggregateInterface
 {
     /**
+     * post: Get events and clear them
      * @return DomainEventInterface[]
      */
-    public function getEvents(): array;
-
-    public function clearDomainEvents(): void;
+    public function pullEvents(): array;
 }

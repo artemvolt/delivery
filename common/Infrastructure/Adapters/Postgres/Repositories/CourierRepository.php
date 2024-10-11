@@ -34,10 +34,7 @@ final class CourierRepository implements CourierRepositoryInterface
             );
         }
 
-        foreach ($courier->getEvents() as $event) {
-            $this->domainEventsDispatcher->store($event);
-        }
-        $courier->clearDomainEvents();
+        $this->domainEventsDispatcher->store($courier->pullEvents());
     }
 
     public function updateCourier(CourierAggregate $courier): void
@@ -54,10 +51,7 @@ final class CourierRepository implements CourierRepositoryInterface
             );
         }
 
-        foreach ($courier->getEvents() as $event) {
-            $this->domainEventsDispatcher->store($event);
-        }
-        $courier->clearDomainEvents();
+        $this->domainEventsDispatcher->store($courier->pullEvents());
     }
 
     public function getById(UuidInterface $id): ?CourierAggregate
