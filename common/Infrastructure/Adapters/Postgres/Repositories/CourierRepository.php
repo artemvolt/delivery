@@ -12,12 +12,18 @@ use app\common\Core\Domain\Model\SharedKernel\CoordinateVO;
 use app\common\Core\Domain\Model\SharedKernel\LocationVO;
 use app\common\Core\Ports\CourierRepositoryInterface;
 use app\common\Infrastructure\Adapters\Postgres\Models\CourierModel;
+use common\Infrastructure\Adapters\Postgres\DomainEventsDispatcherInterface;
 use DomainException;
 use Ramsey\Uuid\UuidFactory;
 use Ramsey\Uuid\UuidInterface;
 
 final class CourierRepository implements CourierRepositoryInterface
 {
+    public function __construct(
+        private readonly DomainEventsDispatcherInterface $domainEventsDispatcher,
+    ) {
+    }
+
     public function addCourier(CourierAggregate $courier): void
     {
         $courierModel = new CourierModel();
@@ -27,6 +33,8 @@ final class CourierRepository implements CourierRepositoryInterface
                 "Could not save Courier {$courier->getId()}. Errors: " . implode(", ", $courierModel->getFirstErrors())
             );
         }
+
+        $this->domainEventsDispatcher->store($courier->pullEvents());
     }
 
     public function updateCourier(CourierAggregate $courier): void
@@ -42,6 +50,8 @@ final class CourierRepository implements CourierRepositoryInterface
                 "Could not update Courier {$courier->getId()}. Errors: " . implode(", ", $courierModel->getFirstErrors())
             );
         }
+
+        $this->domainEventsDispatcher->store($courier->pullEvents());
     }
 
     public function getById(UuidInterface $id): ?CourierAggregate

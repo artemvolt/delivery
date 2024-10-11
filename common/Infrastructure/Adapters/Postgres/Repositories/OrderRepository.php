@@ -11,6 +11,7 @@ use app\common\Core\Domain\OrderAggregate\OrderStatusEntity;
 use app\common\Core\Domain\OrderAggregate\OrderStatusEnum;
 use app\common\Core\Ports\OrderRepositoryInterface;
 use app\common\Infrastructure\Adapters\Postgres\Models\OrderModel;
+use common\Infrastructure\Adapters\Postgres\DomainEventsDispatcherInterface;
 use DomainException;
 use Ramsey\Uuid\UuidFactory;
 use Ramsey\Uuid\UuidInterface;
@@ -19,6 +20,7 @@ final class OrderRepository implements OrderRepositoryInterface
 {
     public function __construct(
         private readonly UuidFactory $uuidFactory,
+        private readonly DomainEventsDispatcherInterface $domainEventsDispatcher,
     ) {
     }
 
@@ -31,6 +33,8 @@ final class OrderRepository implements OrderRepositoryInterface
                 . implode(", ", $orderModel->getFirstErrors())
             );
         }
+
+        $this->domainEventsDispatcher->store($order->pullEvents());
     }
 
     public function updateOrder(OrderAggregate $order): void
@@ -46,6 +50,8 @@ final class OrderRepository implements OrderRepositoryInterface
                 implode(", ", $orderModel->getFirstErrors())
             );
         }
+
+        $this->domainEventsDispatcher->store($order->pullEvents());
     }
 
     public function getById(UuidInterface $orderId): ?OrderAggregate
