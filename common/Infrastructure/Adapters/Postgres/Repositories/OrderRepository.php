@@ -11,7 +11,7 @@ use app\common\Core\Domain\OrderAggregate\OrderStatusEntity;
 use app\common\Core\Domain\OrderAggregate\OrderStatusEnum;
 use app\common\Core\Ports\OrderRepositoryInterface;
 use app\common\Infrastructure\Adapters\Postgres\Models\OrderModel;
-use common\Infrastructure\Adapters\Postgres\DomainEventsDispatcherInterface;
+use app\common\Infrastructure\Adapters\Postgres\DomainEventsDispatcherInterface;
 use DomainException;
 use Ramsey\Uuid\UuidFactory;
 use Ramsey\Uuid\UuidInterface;

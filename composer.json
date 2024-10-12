@@ -24,9 +24,12 @@
         "bower-asset/swagger-ui": "^5.17",
         "grpc/grpc": "^1.57",
         "ext-grpc": "*",
+        "ext-rdkafka": "*",
         "google/protobuf": "^4.28",
         "arquivei/php-kafka-consumer": "^2.6",
-        "nmred/kafka-php": "^0.1.6"
+        "nmred/kafka-php": "^0.1.6",
+        "yiisoft/yii2-queue": "^2.3",
+        "yiisoft/yii2-redis": "^2.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

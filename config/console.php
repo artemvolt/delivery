@@ -1,12 +1,15 @@
 <?php
 
+use yii\queue\redis\Queue;
+use yii\redis\Connection;
+
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'basic-console',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log'],
+    'bootstrap' => ['log', 'queue'],
     'controllerNamespace' => 'app\commands',
     'container' => require __DIR__ . '/container.php',
     'aliases' => [
@@ -28,6 +31,16 @@ $config = [
             ],
         ],
         'db' => $db,
+        'redis' => [
+            'class' => Connection::class,
+            'hostname' => 'delivery_redis',
+            'retries' => 1,
+        ],
+        'queue' => [
+            'class' => Queue::class,
+            'redis' => 'redis', // Redis connection component or its config
+            'channel' => 'queue', // Queue channel key
+        ],
     ],
     'params' => $params,
     /*
