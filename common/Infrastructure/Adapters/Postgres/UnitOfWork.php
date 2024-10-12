@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace common\Infrastructure\Adapters\Postgres;
 
+use app\common\Infrastructure\Adapters\Postgres\DomainEventsDispatcherInterface;
 use yii\db\Connection;
 
 final class UnitOfWork implements UnitOfWorkInterface
@@ -15,7 +16,10 @@ final class UnitOfWork implements UnitOfWorkInterface
 
     public function transaction(callable $function): mixed
     {
-        $this->connection->transaction($function);
-        $this->domainEventsDispatcher->publishDomainEvents();
+        return $this->connection->transaction(function () use ($function) {
+            $result = $function();
+            $this->domainEventsDispatcher->publishDomainEvents();
+            return $result;
+        });
     }
 }

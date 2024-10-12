@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace common\Infrastructure\Adapters\Postgres;
+namespace app\common\Infrastructure\Adapters\Postgres;
 
 use app\common\Core\Domain\Aggregates\AggregateInterface;
 use app\common\Core\Domain\Events\DomainEventInterface;
