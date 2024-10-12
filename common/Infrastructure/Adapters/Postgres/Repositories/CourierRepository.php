@@ -12,7 +12,7 @@ use app\common\Core\Domain\Model\SharedKernel\CoordinateVO;
 use app\common\Core\Domain\Model\SharedKernel\LocationVO;
 use app\common\Core\Ports\CourierRepositoryInterface;
 use app\common\Infrastructure\Adapters\Postgres\Models\CourierModel;
-use common\Infrastructure\Adapters\Postgres\DomainEventsDispatcherInterface;
+use app\common\Infrastructure\Adapters\Postgres\DomainEventsDispatcherInterface;
 use DomainException;
 use Ramsey\Uuid\UuidFactory;
 use Ramsey\Uuid\UuidInterface;

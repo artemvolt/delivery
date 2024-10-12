@@ -52,6 +52,14 @@ services:
     networks:
       - delivery_network
 
+  redis:
+    container_name: delivery_redis
+    image: redis:latest
+    ports:
+      - 6379:6379
+    networks:
+      - delivery_network
+
 networks:
   delivery_network:
     external: true
