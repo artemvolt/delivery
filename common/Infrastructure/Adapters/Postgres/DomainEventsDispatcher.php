@@ -7,7 +7,7 @@ namespace app\common\Infrastructure\Adapters\Postgres;
 use app\common\Core\Domain\Aggregates\AggregateInterface;
 use app\common\Core\Domain\Events\DomainEventInterface;
 use app\common\Infrastructure\Exceptions\InfrastructureException;
-use common\Infrastructure\Adapters\Postgres\DomainEventsDispatcherInterface;
+use app\common\Infrastructure\Adapters\Postgres\DomainEventsDispatcherInterface;
 use Yii;
 use yii\base\InvalidConfigException;
 
